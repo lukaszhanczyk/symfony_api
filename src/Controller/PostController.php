@@ -19,11 +19,21 @@ class PostController extends AbstractApiController
      * @Rest\Get("/api/posts")
      * @return Response
      */
-    public function readPosts(PostRepository $postRepository): Response
+    public function readPosts(Request $request, PostRepository $postRepository): Response
     {
-        $posts = $postRepository->findAll();
+        $category_id = $request->query->getInt('category') ;
+        $limit = $request->query->getInt('limit');
+        $offset = $request->query->getInt('offset') ;
+        $limit = $limit == 0 ? 200 : $limit;
+        if ($category_id == 0)
+            $posts = $postRepository->findAll($offset, $limit);
+        else
+            $posts = $postRepository->findByCategory($category_id, $offset, $limit);
         return $this->handleView($this->view([
-            'posts' => $posts
+            'posts' => $posts,
+            'category_id' => $category_id,
+            'limit' => $limit,
+            'offset' => $offset
         ], Response::HTTP_OK));
     }
 

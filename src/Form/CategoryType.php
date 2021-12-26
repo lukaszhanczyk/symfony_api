@@ -13,6 +13,7 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('posts')
         ;
     }
 
@@ -20,6 +21,7 @@ class CategoryType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Category::class,
+            'csrf_protection'=>false
         ]);
     }
 }

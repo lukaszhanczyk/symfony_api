@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Movie;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -46,13 +47,13 @@ class CategoryController extends AbstractApiController
 
     /**
      * Lists all Movies.
-     * @Rest\Put("/api/categories/{id}")
+     * @Rest\Patch("/api/categories/{id}")
      * @return Response
      */
     public function updateCategories(Category $category, Request $request):Response
     {
         $form = $this->buildForm(CategoryType::class, $category, [
-            'method'=>'PUT'
+            'method'=>'PATCH'
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -63,5 +64,19 @@ class CategoryController extends AbstractApiController
             return $this->handleView($this->view([$category], Response::HTTP_OK));
         }
         return $this->handleView($this->view($form->getErrors()));
+    }
+
+    /**
+     * Create Movie.
+     * @Rest\Delete("/api/categories/{id}")
+     *
+     * @return Response
+     */
+    public function deleteCategories(Category $category, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($category);
+        $em->flush();
+        return $this->handleView($this->view([$category], Response::HTTP_OK));
     }
 }

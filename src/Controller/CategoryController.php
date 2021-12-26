@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -16,7 +17,7 @@ class CategoryController extends AbstractApiController
      * @Rest\Get("/api/categories")
      * @return Response
      */
-    public function readPosts(CategoryRepository $categoryRepository): Response
+    public function readCategories(CategoryRepository $categoryRepository): Response
     {
         $categories = $categoryRepository->findAll();
         return $this->handleView($this->view([
@@ -29,7 +30,7 @@ class CategoryController extends AbstractApiController
      * @Rest\Post("/api/categories")
      * @return Response
      */
-    public function createPosts(Request $request):Response
+    public function createCategories(Request $request):Response
     {
         $form = $this->buildForm(CategoryType::class);
         $form->handleRequest($request);
@@ -39,6 +40,27 @@ class CategoryController extends AbstractApiController
             $em->persist($category);
             $em->flush();
             return $this->handleView($this->view([$category], Response::HTTP_CREATED));
+        }
+        return $this->handleView($this->view($form->getErrors()));
+    }
+
+    /**
+     * Lists all Movies.
+     * @Rest\Put("/api/categories/{id}")
+     * @return Response
+     */
+    public function updateCategories(Category $category, Request $request):Response
+    {
+        $form = $this->buildForm(CategoryType::class, $category, [
+            'method'=>'PUT'
+        ]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $category = $form->getData();
+            $em->persist($category);
+            $em->flush();
+            return $this->handleView($this->view([$category], Response::HTTP_OK));
         }
         return $this->handleView($this->view($form->getErrors()));
     }

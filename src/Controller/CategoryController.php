@@ -3,10 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\Movie;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

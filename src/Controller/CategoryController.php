@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 class CategoryController extends AbstractApiController
 {
     /**
-     * Lists all Movies.
      * @Rest\Get("/api/categories")
      * @return Response
      */
@@ -25,7 +24,6 @@ class CategoryController extends AbstractApiController
     }
 
     /**
-     * Lists all Movies.
      * @Rest\Post("/api/categories")
      * @return Response
      */
@@ -44,7 +42,6 @@ class CategoryController extends AbstractApiController
     }
 
     /**
-     * Lists all Movies.
      * @Rest\Patch("/api/categories/{id}")
      * @return Response
      */
@@ -65,7 +62,6 @@ class CategoryController extends AbstractApiController
     }
 
     /**
-     * Create Movie.
      * @Rest\Delete("/api/categories/{id}")
      *
      * @return Response

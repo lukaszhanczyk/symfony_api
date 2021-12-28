@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends AbstractApiController
 {
     /**
-     * Lists all Movies.
      * @Rest\Get("/api/posts")
      * @return Response
      */
@@ -38,7 +37,6 @@ class PostController extends AbstractApiController
     }
 
     /**
-     * Lists all Movies.
      * @Rest\Post("/api/posts")
      * @return Response
      */
@@ -57,7 +55,6 @@ class PostController extends AbstractApiController
     }
 
     /**
-     * Lists all Movies.
      * @Rest\Patch("/api/posts/{id}")
      * @return Response
      */
@@ -78,7 +75,6 @@ class PostController extends AbstractApiController
     }
 
     /**
-     * Create Movie.
      * @Rest\Delete("/api/posts/{id}")
      *
      * @return Response
